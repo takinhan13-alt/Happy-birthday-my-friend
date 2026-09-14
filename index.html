@@ -231,24 +231,35 @@ audio.addEventListener('ended',()=>{
 </audio>
 
 <script>
-  (function() {
-      var bgAudio = document.getElementById('bg-birthday-music');
+    var voiceAudio = document.getElementById('voice-audio');
+    var bgAudio = document.getElementById('bg-birthday-music');
+    var voiceBtn = document.getElementById('voice-btn'); // Nút bấm phát voice của cậu
 
-      if (bgAudio) {
-          // Chỉnh âm lượng nhạc nền xuống 15% để không đè voice
-          bgAudio.volume = 0.15;
-      }
+    if (voiceBtn && voiceAudio) {
+        voiceBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
 
-      function playAudio() {
-          if (bgAudio && bgAudio.paused) {
-              bgAudio.play().catch(function(err) {
-                  console.log("Autoplay blocked:", err);
-              });
-          }
-      }
+            if (voiceAudio.paused) {
+                // Giảm âm lượng nhạc nền xuống 5% để nghe rõ tiếng voice
+                if (bgAudio) bgAudio.volume = 0.05;
 
-      window.addEventListener('click', playAudio, { once: true });
-      window.addEventListener('touchstart', playAudio, { once: true });
+                voiceAudio.play().then(function() {
+                    console.log("Voice đang phát...");
+                }).catch(function(err) {
+                    console.log("Lỗi phát voice:", err);
+                });
+            } else {
+                voiceAudio.pause();
+                // Khôi phục nhạc nền về 15% khi dừng voice
+                if (bgAudio) bgAudio.volume = 0.15;
+            }
+        });
+
+        // Khi voice phát xong hết bài -> Tự động cho nhạc nền to lại
+        voiceAudio.addEventListener('ended', function() {
+            if (bgAudio) bgAudio.volume = 0.15;
+        });
+    
   })();
 </script>
 </body>
