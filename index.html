@@ -112,21 +112,21 @@ footer{padding:35px 20px;text-align:center;color:#6f6d7e;font-size:.75rem}
     </div>
 
     <div class="memory-grid">
-      <figure class="polaroid p1"><img src="assets/memory-01.jpg" alt="A memory of Jerry outdoors"><figcaption>just another day ✦</figcaption></figure>
-      <figure class="polaroid p2"><img src="assets/memory-02.jpg" alt="Jerry on a trip"><figcaption>little adventures</figcaption></figure>
-      <figure class="polaroid p3"><img src="assets/memory-03.jpg" alt="A memory at a restaurant"><figcaption>good food, good company</figcaption></figure>
-      <figure class="polaroid p4"><img src="assets/memory-04.jpg" alt="A memory together"><figcaption>one for the album ♡</figcaption></figure>
-      <figure class="polaroid p5"><img src="assets/memory-05.jpg" alt="A travel memory"><figcaption>where we wandered</figcaption></figure>
-      <figure class="polaroid p6"><img src="assets/memory-06.jpg" alt="A funny memory together"><figcaption>same chaos, different day</figcaption></figure>
-      <figure class="polaroid p7"><img src="assets/memory-07.jpg" alt="A photo booth memory"><figcaption>proof we were here</figcaption></figure>
-      <figure class="polaroid p8"><img src="assets/memory-08.jpg" alt="A photo booth memory"><figcaption>still us</figcaption></figure>
-      <figure class="polaroid p9"><img src="assets/memory-09.jpg" alt="A photo booth memory"><figcaption>one more memory</figcaption></figure>
-      <figure class="polaroid p10"><img src="assets/memory-10.jpg" alt="A short moving memory"><figcaption>a tiny moment in motion</figcaption></figure>
+      <figure class="polaroid p1"><img src="memory-01.jpg" alt="A memory of Jerry outdoors"><figcaption>just another day ✦</figcaption></figure>
+      <figure class="polaroid p2"><img src="memory-02.jpg" alt="Jerry on a trip"><figcaption>little adventures</figcaption></figure>
+      <figure class="polaroid p3"><img src="memory-03.jpg" alt="A memory at a restaurant"><figcaption>good food, good company</figcaption></figure>
+      <figure class="polaroid p4"><img src="memory-04.jpg" alt="A memory together"><figcaption>one for the album ♡</figcaption></figure>
+      <figure class="polaroid p5"><img src="memory-05.jpg" alt="A travel memory"><figcaption>where we wandered</figcaption></figure>
+      <figure class="polaroid p6"><img src="memory-06.jpg" alt="A funny memory together"><figcaption>same chaos, different day</figcaption></figure>
+      <figure class="polaroid p7"><img src="memory-07.jpg" alt="A photo booth memory"><figcaption>proof we were here</figcaption></figure>
+      <figure class="polaroid p8"><img src="memory-08.jpg" alt="A photo booth memory"><figcaption>still us</figcaption></figure>
+      <figure class="polaroid p9"><img src="memory-09.jpg" alt="A photo booth memory"><figcaption>one more memory</figcaption></figure>
+      <figure class="polaroid p10"><img src="memory-10.jpg" alt="A short moving memory"><figcaption>a tiny moment in motion</figcaption></figure>
     </div>
 
     <div class="video-card fade-up">
-      <video controls playsinline preload="metadata" poster="assets/memory-10.jpg">
-        <source src="assets/memory-video.mp4" type="video/mp4">
+      <video controls playsinline preload="metadata" poster="memory-10.jpg">
+        <source src="memory-video.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -155,7 +155,7 @@ footer{padding:35px 20px;text-align:center;color:#6f6d7e;font-size:.75rem}
         </div>
       </div>
       <audio id="voice" preload="metadata">
-      <audio id="voice-audio" src="assets/voice.mp3" preload="auto"></audio>
+        <source src="assets/voice-message.mp3" type="audio/mpeg">
       </audio>
     </div>
   </div>
@@ -188,7 +188,7 @@ const observer = new IntersectionObserver(entries => {
 },{threshold:.12});
 document.querySelectorAll('.fade-up,.reveal,.polaroid').forEach(el=>observer.observe(el));
 
-const audio = document.getElementById('voice');
+var voiceAudio = document.getElementById('voice');
 const btn = document.getElementById('audioBtn');
 const progress = document.getElementById('audioProgress');
 const note = document.getElementById('audioNote');
@@ -219,35 +219,16 @@ audio.addEventListener('ended',()=>{
   btn.textContent='▶'; note.textContent='A little message, just for you ♡'; progress.style.width='0%';
 });
 </script>
-<audio id="bg-birthday-music" loop preload="auto">
-  <source src="assets/happy-birthday.mp3" type="audio/mpeg">
+<!-- Thẻ chèn nhạc nền Happy Birthday -->
+<audio id="bg-music" loop autoplay>
+  <audio src="assets/happy-birthday.m4a" type="audio/mpeg"></audio>
+  Trình duyệt của bạn không hỗ trợ thẻ audio.
 </audio>
-
-<audio id="bg-birthday-music" loop preload="auto">
-    <source src="assets/happy-birthday.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-    (function() {
-        var bgAudio = document.getElementById('bg-birthday-music');
-
-        if (bgAudio) {
-            // Chỉnh âm lượng nhạc nền xuống 15% để không đè voice
-            bgAudio.volume = 0.15;
-        }
-
-        function playAudio() {
-            if (bgAudio && bgAudio.paused) {
-                bgAudio.play().catch(function(err) {
-                    console.log("Autoplay blocked:", err);
-                });
-            }
-        }
-
-        window.addEventListener('click', playAudio, { once: true });
-        window.addEventListener('touchstart', playAudio, { once: true });
-    })();
+  document.addEventListener('click', function() {
+      var audio = document.getElementById('bg-music');
+      if (audio.paused) {
+          audio.play();
+      }
+  }, { once: true }); // Chạy 1 lần duy nhất khi người dùng click
 </script>
-
-</body>
-</html>
